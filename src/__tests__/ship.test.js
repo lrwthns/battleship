@@ -1,23 +1,34 @@
 import { ship } from '../app-logic';
 
 describe('ship factory function', () => {
-  let patrolShip;
+  let submarine;
+  let carrier;
   beforeEach(() => {
-    patrolShip = ship([31, 32, 33]);
+    submarine = ship('A', 1, true, 3);
+    carrier = ship('C', 3, false, 5);
   });
   test('accepts a hit', () => {
-    patrolShip.hit(33);
-    expect(patrolShip.hits).toEqual([33]);
-    patrolShip.hit(32);
-    expect(patrolShip.hits).toEqual([33, 32]);
-    patrolShip.hit(45);
-    expect(patrolShip.hits).toEqual([33, 32]);
+    submarine.hit('A1');
+    expect(submarine.hits).toEqual(['A1']);
+    submarine.hit('A2');
+    expect(submarine.hits).toEqual(['A1', 'A2']);
+    carrier.hit('D3');
+    expect(carrier.hits).toEqual(['D3']);
+    carrier.hit('E3');
+    expect(carrier.hits).toEqual(['D3', 'E3']);
   });
   test('shows that the boat is sunk', () => {
-    patrolShip.hit(32);
-    expect(patrolShip.isSunk()).toBe(false);
-    patrolShip.hit(31);
-    patrolShip.hit(33);
-    expect(patrolShip.isSunk()).toBe(true);
+    submarine.hit('A2');
+    expect(submarine.isSunk()).toBe(false);
+    submarine.hit('A1');
+    submarine.hit('A3');
+    expect(submarine.isSunk()).toBe(true);
+    carrier.hit('F3');
+    carrier.hit('C3');
+    expect(carrier.isSunk()).toBe(false);
+    carrier.hit('D3');
+    carrier.hit('E3');
+    carrier.hit('G3');
+    expect(carrier.isSunk()).toBe(true);
   })
 })
