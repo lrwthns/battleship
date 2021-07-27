@@ -1,11 +1,11 @@
-import { ship } from '../app-logic';
+import { Ship } from '../app-logic';
 
-describe('ship factory function', () => {
+describe('Ship factory function', () => {
   let submarine;
   let carrier;
   beforeEach(() => {
-    submarine = ship('A', 1, true, 3);
-    carrier = ship('C', 3, false, 5);
+    submarine = Ship('A', 1, true, 3);
+    carrier = Ship('C', 3, false, 5);
   });
   test('accepts a hit', () => {
     submarine.hit('A1');

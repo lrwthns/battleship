@@ -1,4 +1,4 @@
-const ship = (coordiX, coordiY, isVertical, shipLength) => {
+const Ship = (coordiX, coordiY, isVertical, shipLength) => {
   // the array that contains the coordinates of the ship
   let coordi = [];
   // this if statement decides the coordinates of the ship and push them to the coordi array
@@ -35,12 +35,12 @@ const ship = (coordiX, coordiY, isVertical, shipLength) => {
   }
 }
 
-const gameboard = (() => {
+const Gameboard = () => {
   let ships = [];
   let missedAttacks = [];
 
   const placeShip = (x, y, isVertical, shipLength) => {
-    let newShip = ship(x, y, isVertical, shipLength)
+    let newShip = Ship(x, y, isVertical, shipLength)
     ships.push(newShip);
   };
 
@@ -66,9 +66,33 @@ const gameboard = (() => {
     receiveAttack,
     missedAttacks,
   }
-})();
+};
+
+const Player = (name, isComputer = false) => {
+  let hasHitCoordi = [];
+  const launchAttack = (gameboard, x = '', y = '') => {
+    if (isComputer === true) {
+      const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      // generates a random whole number between 1 to 10
+      let randomNumber = Math.floor(Math.random() * 10) + 1;
+      let randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
+      gameboard.receiveAttack(randomAlphabet, randomNumber);
+      hasHitCoordi.push([randomAlphabet, randomNumber]);
+    } else {
+      gameboard.receiveAttack(x, y);
+      hasHitCoordi.push([x, y]);
+    }
+  };
+
+  return {
+    name,
+    hasHitCoordi,
+    launchAttack,
+  }
+};
 
 export {
-  ship,
-  gameboard,
+  Ship,
+  Gameboard,
+  Player,
 }
