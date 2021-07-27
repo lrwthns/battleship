@@ -40,6 +40,7 @@ describe('Player factory function', () => {
       // the length of unique array is compared to the length of original array
       return uniqueArray.length !== array.length;
     }
+    console.log(playerComputer.hasHitCoordi);
     console.log(playerComputer.hasHitCoordi.length);
     expect(hasDuplicates(playerComputer.hasHitCoordi)).toBe(false);
   })

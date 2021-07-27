@@ -72,12 +72,25 @@ const Player = (name, isComputer = false) => {
   let hasHitCoordi = [];
   const launchAttack = (gameboard, x = '', y = '') => {
     if (isComputer === true) {
-      const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-      // generates a random whole number between 1 to 10
-      let randomNumber = Math.floor(Math.random() * 10) + 1;
-      let randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
-      gameboard.receiveAttack(randomAlphabet, randomNumber);
-      hasHitCoordi.push([randomAlphabet, randomNumber]);
+      const findRandomUniqueCoor = (arr) => {
+        const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        // generates a random whole number between 1 to 10
+        const generateRandomCoor = () => {
+          const randomNumber = Math.floor(Math.random() * 10) + 1;
+          const randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
+          const randomArr = [randomAlphabet, randomNumber];
+          return randomArr;
+        }
+        let randomCoor = generateRandomCoor();
+        // while hasHitCoordi contains the same element as randomCoor, generate a new random coor
+        while (hasHitCoordi.some(item => item[0] === randomCoor[0] && item[1] === randomCoor[1])) {
+          randomCoor = generateRandomCoor();
+        }
+        return randomCoor;
+      }
+      const randomUniqueCoor = findRandomUniqueCoor(hasHitCoordi);
+      gameboard.receiveAttack(randomUniqueCoor[0], randomUniqueCoor[1]);
+      hasHitCoordi.push(randomUniqueCoor);
     } else {
       gameboard.receiveAttack(x, y);
       hasHitCoordi.push([x, y]);
