@@ -1,3 +1,60 @@
-body {
+html, body, .content {
+  height: 100%;
+  margin: 0;
+}
+
+.content {
+  background: rgb(13, 60, 104);
+  display: grid;
+  grid-template-rows: 1fr 6fr;
+}
+
+.content-header {
+  color: white;
+  font-size: 6rem;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.content-body {
+  background: rgb(12, 54, 94);
+  display: flex;
+  flex-direction: column;
+}
+
+.message-board-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.message-board{
+  color: white;
+  font-size: 2rem;
   background: black;
-};
+  padding: 1rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-one, .grid-two {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  width: 40rem;
+  height: 40rem;
+  justify-self: center;
+  padding: 2rem;
+}
+
+.grid-one-cells, .grid-two-cells {
+  background: white;
+  border: 1px solid black;
+}
+
+.grid-two-cells:hover {
+  background: rgb(21, 133, 177);
+}
