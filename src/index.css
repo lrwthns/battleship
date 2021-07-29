@@ -51,7 +51,7 @@ html, body, .content {
 }
 
 .grid-one-cells, .grid-two-cells {
-  background: white;
+  background: transparent;
   border: 1px solid black;
 }
 

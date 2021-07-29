@@ -1,4 +1,4 @@
-import { displayInitialElements } from "./dom-manipulation";
+import gameController from "./game-controller";
 import "./index.css";
 
-displayInitialElements();
+gameController();

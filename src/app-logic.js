@@ -44,6 +44,8 @@ const Gameboard = () => {
     ships.push(newShip);
   };
 
+  // there should be a function to place ships randomly, gotta make some rules as to where ships can be placed
+
   const receiveAttack = (x, y) => {
     let coor = `${x}${y}`;
     let isMissedHit = true;
