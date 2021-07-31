@@ -4,7 +4,7 @@ html, body, .content {
 }
 
 .content {
-  background: rgb(13, 60, 104);
+  background: rgb(62, 153, 189);
   display: grid;
   grid-template-rows: 1fr 6fr;
 }
@@ -18,7 +18,7 @@ html, body, .content {
 }
 
 .content-body {
-  background: rgb(12, 54, 94);
+  background: rgb(62, 153, 189);
   display: flex;
   flex-direction: column;
 }
@@ -32,7 +32,7 @@ html, body, .content {
 .message-board{
   color: white;
   font-size: 2rem;
-  background: black;
+  background: rgb(80, 80, 80);
   padding: 1rem;
 }
 
@@ -56,5 +56,5 @@ html, body, .content {
 }
 
 .grid-two-cells:hover {
-  background: rgb(21, 133, 177);
+  background: rgb(211, 243, 255);
 }

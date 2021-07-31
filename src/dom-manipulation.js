@@ -1,5 +1,9 @@
 import createNewElement from "./dom-manipulation-helper";
 
+const changeGridCellClass = () => {
+  
+}
+
 const createGridCells = (container, className, cellClassName) => {
   let times = 100;
   let grid = createNewElement(container, className);
