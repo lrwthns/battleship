@@ -1,4 +1,4 @@
 import gameController from "./game-controller";
 import "./index.css";
 
-gameController();
+let newGame = gameController();

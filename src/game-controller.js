@@ -13,6 +13,11 @@ const gameController = () => {
   computerBoard.placeShip('E', 4, true, 4);
   computerBoard.placeShip('B', 3, false, 5);
   displayInitialElements();
+
+  return {
+    playerBoard,
+    computerBoard,
+  }
 }
 
 export default gameController;
