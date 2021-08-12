@@ -10,7 +10,7 @@ describe('gameController', () => {
     newGame = gameController();
   });
   test('adds ship coordinates to gameboard.ships', () => {
-    expect(newGame.playerBoard.ships.length).toBeGreaterThan(0);
-    expect(newGame.computerBoard.ships.length).toBeGreaterThan(0);
+    expect(newGame.human.board.ships.length).toBeGreaterThan(0);
+    expect(newGame.computer.board.ships.length).toBeGreaterThan(0);
   });
 })

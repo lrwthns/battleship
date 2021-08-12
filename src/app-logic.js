@@ -1,6 +1,4 @@
-import { changeGridCellClass } from "./dom-manipulation";
-
-const Ship = (coordiX, coordiY, isVertical, shipLength, isComputer) => {
+const Ship = (coordiX, coordiY, isVertical, shipLength) => {
   // the array that contains the coordinates of the ship
   let coordi = [];
   // this if statement decides the coordinates of the ship and push them to the coordi array
@@ -14,12 +12,6 @@ const Ship = (coordiX, coordiY, isVertical, shipLength, isComputer) => {
       // increments coordiX (letter) and push it to the array
       coordi.push(`${String.fromCharCode(coordiX.charCodeAt() + i)}${coordiY}`);
     };
-  }
-  if (isComputer === false) {
-    for (let i = 0; i < coordi.length; i++) {
-      let id = `grid-one-${coordi[i]}`;
-      changeGridCellClass(id, false, false, true);
-    }
   }
   // the array that contains the coordinates that received a hit
   let hits = [];
@@ -47,8 +39,8 @@ const Gameboard = (isComputer) => {
   let ships = [];
   let missedAttacks = [];
 
-  const placeShip = (x, y, isVertical, shipLength, isComputer = false) => {
-    let newShip = Ship(x, y, isVertical, shipLength, isComputer);
+  const placeShip = (x, y, isVertical, shipLength) => {
+    let newShip = Ship(x, y, isVertical, shipLength);
     ships.push(newShip);
   };
 
