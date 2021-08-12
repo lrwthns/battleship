@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Gameboard } from '../app-logic';
 
 describe('playerGameboard factory function', () => {

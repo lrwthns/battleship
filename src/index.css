@@ -58,3 +58,7 @@ html, body, .content {
 .grid-two-cells:hover {
   background: rgb(255, 255, 255);
 }
+
+.occupied {
+  background: rgb(61, 61, 61);
+}

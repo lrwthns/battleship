@@ -1,8 +1,11 @@
 import createNewElement from "./dom-manipulation-helper";
 
-const changeGridCellClass = () => {
-  
-}
+const changeGridCellClass = (cellId, hit = false, miss = false, showCoordi = false) => {
+  let cell = document.querySelector('#' + cellId);
+  if (showCoordi === true) {
+    cell.classList.add('occupied');
+  }
+};
 
 const createGridCells = (container, className) => {
   let grid = createNewElement(container, className);
@@ -10,7 +13,7 @@ const createGridCells = (container, className) => {
   const createRow = (letter) => {
     let cellClassName = className + '-cells';
     for (let i = 1; i <= 10; i++) {
-      let id = letter + i;
+      let id = `${className}-${letter}${i}`;
       createNewElement(grid, cellClassName, 'div', id);
     }
   }
@@ -35,5 +38,6 @@ const displayInitialElements = () => {
 
 export {
   displayInitialElements,
+  changeGridCellClass,
 };
 

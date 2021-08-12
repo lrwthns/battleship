@@ -1,3 +1,5 @@
+import { changeGridCellClass } from "./dom-manipulation";
+
 const Ship = (coordiX, coordiY, isVertical, shipLength) => {
   // the array that contains the coordinates of the ship
   let coordi = [];
@@ -12,6 +14,10 @@ const Ship = (coordiX, coordiY, isVertical, shipLength) => {
       // increments coordiX (letter) and push it to the array
       coordi.push(`${String.fromCharCode(coordiX.charCodeAt() + i)}${coordiY}`);
     };
+  }
+  for (let i = 0; i < coordi.length; i++) {
+    let id = `grid-one-${coordi[i]}`;
+    changeGridCellClass(id, false, false, true);
   }
   // the array that contains the coordinates that received a hit
   let hits = [];

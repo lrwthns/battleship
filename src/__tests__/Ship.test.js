@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Ship } from '../app-logic';
 
 describe('Ship factory function', () => {
