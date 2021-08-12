@@ -1,6 +1,6 @@
 import { changeGridCellClass } from "./dom-manipulation";
 
-const Ship = (coordiX, coordiY, isVertical, shipLength) => {
+const Ship = (coordiX, coordiY, isVertical, shipLength, isComputer) => {
   // the array that contains the coordinates of the ship
   let coordi = [];
   // this if statement decides the coordinates of the ship and push them to the coordi array
@@ -15,9 +15,11 @@ const Ship = (coordiX, coordiY, isVertical, shipLength) => {
       coordi.push(`${String.fromCharCode(coordiX.charCodeAt() + i)}${coordiY}`);
     };
   }
-  for (let i = 0; i < coordi.length; i++) {
-    let id = `grid-one-${coordi[i]}`;
-    changeGridCellClass(id, false, false, true);
+  if (isComputer === false) {
+    for (let i = 0; i < coordi.length; i++) {
+      let id = `grid-one-${coordi[i]}`;
+      changeGridCellClass(id, false, false, true);
+    }
   }
   // the array that contains the coordinates that received a hit
   let hits = [];
@@ -41,12 +43,12 @@ const Ship = (coordiX, coordiY, isVertical, shipLength) => {
   }
 }
 
-const Gameboard = () => {
+const Gameboard = (isComputer) => {
   let ships = [];
   let missedAttacks = [];
 
-  const placeShip = (x, y, isVertical, shipLength) => {
-    let newShip = Ship(x, y, isVertical, shipLength)
+  const placeShip = (x, y, isVertical, shipLength, isComputer = false) => {
+    let newShip = Ship(x, y, isVertical, shipLength, isComputer);
     ships.push(newShip);
   };
 
@@ -78,7 +80,8 @@ const Gameboard = () => {
 
 const Player = (name, isComputer = false) => {
   let hasHitCoordi = [];
-  const launchAttack = (gameboard, x = '', y = '') => {
+  let board = Gameboard(isComputer);
+  const launchAttack = (enemyGameboard, x = '', y = '') => {
     if (isComputer === true) {
       const findRandomUniqueCoor = (arr) => {
         const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
@@ -97,16 +100,17 @@ const Player = (name, isComputer = false) => {
         return randomCoor;
       }
       const randomUniqueCoor = findRandomUniqueCoor(hasHitCoordi);
-      gameboard.receiveAttack(randomUniqueCoor[0], randomUniqueCoor[1]);
+      enemyGameboard.receiveAttack(randomUniqueCoor[0], randomUniqueCoor[1]);
       hasHitCoordi.push(randomUniqueCoor);
     } else {
-      gameboard.receiveAttack(x, y);
+      enemyGameboard.receiveAttack(x, y);
       hasHitCoordi.push([x, y]);
     }
   };
 
   return {
     name,
+    board,
     hasHitCoordi,
     launchAttack,
   }
