@@ -5,10 +5,7 @@ const attachEventListeners = (player, enemy) => {
       let coordi = e.target.id.slice(9);
       const xCoor = coordi.charAt(0);
       const yCoor = coordi.slice(1);
-      console.log(coordi);
-      console.log(xCoor);
-      console.log(yCoor);
-      // player.launchAttack(enemy.board, xCoor, yCoor)
+      player.launchAttack(enemy.board, xCoor, yCoor);
     }
   })
 };
