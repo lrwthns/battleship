@@ -10,15 +10,12 @@ const changeGridCellClass = (cellId, hit = false, miss = false, showCoordi = fal
 const createGridCells = (container, className) => {
   let grid = createNewElement(container, className);
   const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-  const createRow = (letter) => {
-    let cellClassName = className + '-cells';
-    for (let i = 1; i <= 10; i++) {
-      let id = `${className}-${letter}${i}`;
+  let cellClassName = className + '-cells';
+  for (let i = 1; i <= 10; i++) {
+    for (let j = 0; j < alphabet.length; j++) {
+      let id = `${className}-${alphabet[j]}${i}`;
       createNewElement(grid, cellClassName, 'div', id);
     }
-  }
-  for (let i = 0; i < alphabet.length; i++) {
-    createRow(alphabet[i]);
   }
   return grid;
 }

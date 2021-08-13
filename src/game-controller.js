@@ -1,6 +1,7 @@
-import { Gameboard, Player } from "./app-logic";
+import { Player } from "./app-logic";
 import { displayInitialElements } from "./dom-manipulation";
 import { changeGridCellClass } from "./dom-manipulation";
+import attachEventListeners from "./event-listeners";
 
 const gameController = () => {
   const human = Player('Player');
@@ -18,6 +19,7 @@ const gameController = () => {
       changeGridCellClass(id, false, false, true);
     }
   }
+  attachEventListeners(human, computer);
   return {
     human,
     computer,
