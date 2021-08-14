@@ -1,8 +1,8 @@
 import createNewElement from "./dom-manipulation-helper";
 
 const changeGridCellClass = (playerOne, playerTwo) => {
-  const changeCell = (playerNumber, coordinate, newClass) => {
-    let id = `grid-${playerNumber}-${coordinate}`;
+  const changeCell = (playerNum, coordinate, newClass) => {
+    let id = `grid-${playerNum}-${coordinate}`;
     let cell = document.querySelector('#' + id);
     cell.classList.add(newClass);
   };
@@ -12,26 +12,18 @@ const changeGridCellClass = (playerOne, playerTwo) => {
       changeCell('one', coor, 'occupied');
     })
   });
-  // shows playerTwo's misses on playerOne's board
-  playerOne.board.missedAttacks.forEach(miss => {
-    changeCell('one', miss, 'missed');
-  });
-  // shows playerOne's misses on playerTwo's board
-  playerTwo.board.missedAttacks.forEach(miss => {
-    changeCell('two', miss, 'missed');
-  });
-  // shows playerOne's hit coordinates on its board
-  playerOne.board.ships.forEach(ship => {
-    ship.hits.forEach(hit => {
-      changeCell('one', hit, 'hit');
+  const showsMissesAndHits = (player, playerNum) => {
+    player.board.missedAttacks.forEach(miss => {
+      changeCell(playerNum, miss, 'missed');
     });
-  });
-  // shows playerTwo's hit coordinates on its board
-  playerTwo.board.ships.forEach(ship => {
-    ship.hits.forEach(hit => {
-      changeCell('two', hit, 'hit');
+    player.board.ships.forEach(ship => {
+      ship.hits.forEach(hit => {
+        changeCell(playerNum, hit, 'hit');
+      });
     });
-  });
+  }
+  showsMissesAndHits(playerOne, 'one');
+  showsMissesAndHits(playerTwo, 'two');  
 };
 
 const createGridCells = (container, className) => {
