@@ -62,3 +62,11 @@ html, body, .content {
 .occupied {
   background: rgb(61, 61, 61);
 }
+
+.missed {
+  background: rgb(53, 82, 109);
+}
+
+.hit {
+  background: rgb(134, 30, 30);
+}

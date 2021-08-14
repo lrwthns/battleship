@@ -13,12 +13,7 @@ const gameController = () => {
   computer.board.placeShip('A', 1, true, 5, true);
   computer.board.placeShip('E', 4, true, 4, true);
   computer.board.placeShip('B', 3, false, 5, true);
-  for (let i = 0; i < human.board.ships.length; i++) {
-    for (let j = 0; j < human.board.ships[i].coordi.length; j++) {
-      let id = `grid-one-${human.board.ships[i].coordi[j]}`;
-      changeGridCellClass(id, false, false, true);
-    }
-  }
+  changeGridCellClass(human, computer);
   attachEventListeners(human, computer);
   return {
     human,
