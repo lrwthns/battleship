@@ -60,13 +60,17 @@ const Gameboard = (isComputer) => {
     }
   }
 
-  // gameboards should be able to report whether or not all of their ships have been sunk
+  // reports whether or not all of the ships have been sunk
+  const areAllShipsSunk = () => {
+    return ships.every(ship => ship.isSunk());
+  }
 
   return {
     ships,
     placeShip,
     receiveAttack,
     missedAttacks,
+    areAllShipsSunk
   }
 };
 

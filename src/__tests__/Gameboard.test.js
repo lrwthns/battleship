@@ -28,5 +28,17 @@ describe('playerGameboard factory function', () => {
     expect(playerGameboard.missedAttacks).toEqual(['G6']);
     playerGameboard.receiveAttack('A', 5);
     expect(playerGameboard.missedAttacks).toEqual(['G6']);
+  });
+  test('reports if all ships are sunk', () => {
+    playerGameboard.placeShip('D', 5, false, 3);
+    playerGameboard.receiveAttack('D', 5);
+    playerGameboard.receiveAttack('A', 3);
+    playerGameboard.receiveAttack('A', 4);
+    expect(playerGameboard.areAllShipsSunk()).toBe(false);
+    playerGameboard.receiveAttack('E', 5);
+    playerGameboard.receiveAttack('F', 5);
+    playerGameboard.receiveAttack('A', 5);
+    playerGameboard.receiveAttack('A', 6);
+    expect(playerGameboard.areAllShipsSunk()).toBe(true);
   })
 })

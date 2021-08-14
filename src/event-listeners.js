@@ -8,11 +8,12 @@ const attachEventListeners = (player, enemy) => {
       const xCoor = coordi.charAt(0);
       const yCoor = coordi.slice(1);
       player.launchAttack(enemy.board, xCoor, yCoor);
-      enemy.launchAttack(player.board);
-      //call changegridcellcalls here?
       changeGridCellClass(player, enemy);
-      console.log(player.board.ships);
-      
+      // add delay and freeze the grid
+      setTimeout(() => {
+        enemy.launchAttack(player.board);
+        changeGridCellClass(player, enemy);
+      }, 700);
     }
   })
 };
