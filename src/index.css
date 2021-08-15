@@ -35,7 +35,8 @@ html, body, .content {
   background: rgb(80, 80, 80);
   padding: 1rem;
   text-align: center;
-  width: 30rem;
+  width: 20rem;
+  font-family: monospace;
 }
 
 .grid-container {
@@ -43,6 +44,17 @@ html, body, .content {
   grid-template-columns: 1fr 1fr;
   padding-left: 15rem;
   padding-right: 15rem;
+}
+
+.grid-one-container, .grid-two-container {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-name {
+  align-self: center;
+  font-size: 1.5rem;
 }
 
 .grid-one, .grid-two {
@@ -57,6 +69,8 @@ html, body, .content {
 .grid-one-cells, .grid-two-cells {
   background: transparent;
   border: 1px solid black;
+  width: 3rem;
+  height: 3rem;
 }
 
 .grid-two-cells {
@@ -64,7 +78,7 @@ html, body, .content {
 }
 
 .grid-two-cells:hover {
-  background: rgb(255, 255, 255);
+  border-color: grey;
 }
 
 .occupied {
@@ -76,5 +90,10 @@ html, body, .content {
 }
 
 .hit {
-  background: rgb(134, 30, 30);
+  background: rgb(136, 48, 48);
+}
+
+.frozen {
+  opacity: 0.4;
+  pointer-events: none;
 }

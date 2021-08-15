@@ -38,6 +38,7 @@ const Ship = (coordiX, coordiY, isVertical, shipLength) => {
 const Gameboard = (isComputer) => {
   let ships = [];
   let missedAttacks = [];
+  let isFrozen = false;
 
   const placeShip = (x, y, isVertical, shipLength) => {
     let newShip = Ship(x, y, isVertical, shipLength);
@@ -70,7 +71,8 @@ const Gameboard = (isComputer) => {
     placeShip,
     receiveAttack,
     missedAttacks,
-    areAllShipsSunk
+    areAllShipsSunk,
+    isFrozen
   }
 };
 

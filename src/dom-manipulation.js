@@ -23,7 +23,7 @@ const changeGridCellClass = (playerOne, playerTwo) => {
     });
   }
   showsMissesAndHits(playerOne, 'one');
-  showsMissesAndHits(playerTwo, 'two');  
+  showsMissesAndHits(playerTwo, 'two');
 };
 
 const createGridCells = (container, className) => {
@@ -48,12 +48,38 @@ const displayInitialElements = () => {
   const messageBoard = createNewElement(messageBoardContainer, 'message-board');
   messageBoard.textContent = "Player's turn!";
   const gridContainer = createNewElement(contentBody, 'grid-container');
-  const gridOne = createGridCells(gridContainer, 'grid-one');
-  const gridTwo = createGridCells(gridContainer, 'grid-two');
+  const gridOneContainer = createNewElement(gridContainer, 'grid-one-container');
+  const gridOne = createGridCells(gridOneContainer, 'grid-one');
+  const gridOneName = createNewElement(gridOneContainer, 'grid-name');
+  gridOneName.textContent = "Player's board";
+  const gridTwoContainer = createNewElement(gridContainer, 'grid-two-container');
+  const gridTwo = createGridCells(gridTwoContainer, 'grid-two');
+  const gridTwoName = createNewElement(gridTwoContainer, 'grid-name');
+  gridTwoName.textContent = "Computer's board";
+  
+};
+
+const freezeGrid = (playerOne, playerTwo) => {
+  const gridOneCells = document.querySelectorAll('.grid-one-cells');
+  const gridTwoCells = document.querySelectorAll('.grid-two-cells');
+  const freeze = (player, grids) => {
+    if (player.board.isFrozen) {
+      grids.forEach(grid => {
+        grid.classList.add('frozen');
+      });
+    } else {
+      grids.forEach(grid => {
+        grid.classList.remove('frozen');
+      });
+    }
+  }
+  freeze(playerOne, gridOneCells);
+  freeze(playerTwo, gridTwoCells);
 };
 
 export {
   displayInitialElements,
   changeGridCellClass,
+  freezeGrid,
 };
 
