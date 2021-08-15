@@ -46,7 +46,7 @@ const displayInitialElements = () => {
   const contentBody = createNewElement(content, 'content-body');
   const messageBoardContainer = createNewElement(contentBody, 'message-board-container');
   const messageBoard = createNewElement(messageBoardContainer, 'message-board');
-  messageBoard.textContent = "You fired a shot to playerTwo's waters and.. it's a miss!";
+  messageBoard.textContent = "Player's turn!";
   const gridContainer = createNewElement(contentBody, 'grid-container');
   const gridOne = createGridCells(gridContainer, 'grid-one');
   const gridTwo = createGridCells(gridContainer, 'grid-two');

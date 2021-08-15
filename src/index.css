@@ -4,7 +4,7 @@ html, body, .content {
 }
 
 .content {
-  background: rgb(62, 153, 189);
+  background: rgb(87, 113, 124);
   display: grid;
   grid-template-rows: 1fr 6fr;
 }
@@ -18,7 +18,7 @@ html, body, .content {
 }
 
 .content-body {
-  background: rgb(62, 153, 189);
+  background: rgb(87, 113, 124);
   display: flex;
   flex-direction: column;
 }
@@ -34,18 +34,22 @@ html, body, .content {
   font-size: 2rem;
   background: rgb(80, 80, 80);
   padding: 1rem;
+  text-align: center;
+  width: 30rem;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding-left: 15rem;
+  padding-right: 15rem;
 }
 
 .grid-one, .grid-two {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  width: 40rem;
-  height: 40rem;
+  width: 35rem;
+  height: 35rem;
   justify-self: center;
   padding: 2rem;
 }
@@ -53,6 +57,10 @@ html, body, .content {
 .grid-one-cells, .grid-two-cells {
   background: transparent;
   border: 1px solid black;
+}
+
+.grid-two-cells {
+  cursor: crosshair;
 }
 
 .grid-two-cells:hover {
