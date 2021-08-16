@@ -31,15 +31,12 @@ const gameController = () => {
       }, 1500);
     }
   }
+
   const human = Player('Player');
   const computer = Player('Computer', true);
   displayInitialElements();
-  human.board.placeShip('A', 1, true, 5);
-  human.board.placeShip('D', 4, true, 4);
-  human.board.placeShip('C', 2, false, 5);
-  computer.board.placeShip('A', 1, true, 5, true);
-  computer.board.placeShip('E', 4, true, 4, true);
-  computer.board.placeShip('B', 3, false, 5, true);
+  human.board.placeRandomShips();
+  computer.board.placeRandomShips();
   changeGridCellClass(human, computer);
   attachEventListeners(human, computer, loop);
 

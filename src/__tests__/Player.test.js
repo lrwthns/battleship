@@ -36,12 +36,9 @@ describe('Player factory function', () => {
       let uniqueArray = array.map(arr=>JSON.stringify(arr))
       .filter((itm, idx, arr) => arr.indexOf(itm) === idx)
       .map(str=>JSON.parse(str));
-      console.log(uniqueArray.length);
       // the length of unique array is compared to the length of original array
       return uniqueArray.length !== array.length;
     }
-    console.log(playerComputer.hasHitCoordi);
-    console.log(playerComputer.hasHitCoordi.length);
     expect(hasDuplicates(playerComputer.hasHitCoordi)).toBe(false);
   })
 });

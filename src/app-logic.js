@@ -47,7 +47,7 @@ const Gameboard = (isComputer) => {
 
   // there should be a function to place ships randomly, gotta make some rules as to where ships can be placed
 
-  const placeRandom = () => {
+  const placeRandomShips = () => {
     const generateRandomCoordi = (shipLength, isVertical) => {
       const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
       let randomNumber = Math.floor(Math.random() * 10) + 1;
@@ -59,6 +59,36 @@ const Gameboard = (isComputer) => {
       }
       return [randomAlphabet, randomNumber];      
     }
+    const checkForSameCoordi = (shipCoor) => {
+      let shipsCoordi = [];
+      ships.forEach(ship => {
+        ship.coordi.forEach(coor => {
+          shipsCoordi.push(coor);
+        });
+      });
+      // check if any of the coordinates in shipCoor array already exists in shipsCoordi
+      let sameCoordi = shipCoor.some(coor => shipsCoordi.indexOf(coor) >= 0);
+      return sameCoordi;
+    };
+    const createNewShip = (shipLength) => {
+      const createShip = () => {
+        // generates random boolean
+        const isVertical = Math.random() < 0.5;
+        const randomCoordi = generateRandomCoordi(shipLength, isVertical);
+        const ship = Ship(randomCoordi[0], randomCoordi[1], isVertical, shipLength);
+        return ship;
+      }
+      let newShip = createShip();
+      while(checkForSameCoordi(newShip.coordi)) {
+        newShip = createShip();
+      }
+      return newShip;
+    }
+    ships.push(createNewShip(5));
+    ships.push(createNewShip(4));
+    ships.push(createNewShip(3));
+    ships.push(createNewShip(3));
+    ships.push(createNewShip(2));
   }
 
   const receiveAttack = (x, y) => {
@@ -83,7 +113,7 @@ const Gameboard = (isComputer) => {
   return {
     ships,
     placeShip,
-    placeRandom,
+    placeRandomShips,
     receiveAttack,
     missedAttacks,
     areAllShipsSunk,
