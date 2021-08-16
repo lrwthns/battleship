@@ -47,6 +47,20 @@ const Gameboard = (isComputer) => {
 
   // there should be a function to place ships randomly, gotta make some rules as to where ships can be placed
 
+  const placeRandom = () => {
+    const generateRandomCoordi = (shipLength, isVertical) => {
+      const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      let randomNumber = Math.floor(Math.random() * 10) + 1;
+      let randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
+      if (isVertical) {
+        randomNumber = Math.floor(Math.random() * (11 - shipLength)) + 1;
+      } else {
+        randomAlphabet = alphabet[Math.floor(Math.random() * (11 - shipLength))];
+      }
+      return [randomAlphabet, randomNumber];      
+    }
+  }
+
   const receiveAttack = (x, y) => {
     let coor = `${x}${y}`;
     let isMissedHit = true;
@@ -69,6 +83,7 @@ const Gameboard = (isComputer) => {
   return {
     ships,
     placeShip,
+    placeRandom,
     receiveAttack,
     missedAttacks,
     areAllShipsSunk,
