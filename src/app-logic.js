@@ -136,23 +136,24 @@ const Player = (name, isComputer = false) => {
         const randomArr = [randomAlphabet, randomNumber];
         return randomArr;
       }
-      
       const findShipCoor = () => {
         let lastHit = hasHit[hasHit.length-1];
         let increment = Math.random() < 0.5;
         let coordiX = Math.random() < 0.5;
-        if (increment && coordiX) {
+        if (increment && coordiX && lastHit[0] !== 'J') {
           let coorX = alphabet[alphabet.indexOf(lastHit[0]) + 1];
           return [coorX, lastHit[1]];
-        } else if (!increment && coordiX) {
+        } else if (!increment && coordiX && lastHit[0] !== 'A') {
           let coorX = alphabet[alphabet.indexOf(lastHit[0]) - 1];
           return [coorX, lastHit[1]];
-        } else if (increment && !coordiX) {
+        } else if (increment && !coordiX && lastHit[1] !== 10) {
           let coorY = lastHit[1] + 1;
           return [lastHit[0], coorY];
-        } else {
+        } else if (!increment && !coordiX && lastHit[1] !== 1) {
           let coorY = lastHit[1] - 1;
           return [lastHit[0], coorY];
+        } else {
+          return lastHit;
         }
       }
       let attackCoor;

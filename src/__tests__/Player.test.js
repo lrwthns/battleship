@@ -1,4 +1,4 @@
-import { Player, Gameboard } from '../app-logic';
+import { Player } from '../app-logic';
 
 describe('Player factory function', () => {
   let playerHuman;
@@ -45,6 +45,18 @@ describe('Player factory function', () => {
     while (times--) {
       playerComputer.launchAttack(playerHuman.board);
     }
-    expect(playerComputer.hasHit.some(hit => hit === ['D', 4])).toBe(true);
+    expect(playerComputer.hasHit.some(hit => hit[0] === 'D' && hit[1] === 4)).toBe(true);
+  });
+  test('does not attack coordinates that are outside the grid', () => {
+    let times = 4;
+    playerHuman.board.placeShip('G', 10, false, 4);
+    playerComputer.hasAttacked.push(['J', 10]);
+    playerComputer.hasHit.push(['J', 10]);
+    playerHuman.board.receiveAttack('J', 10);
+    while (times--) {
+      playerComputer.launchAttack(playerHuman.board);
+    }
+    console.log(playerComputer.hasAttacked);
+    expect(playerComputer.hasAttacked.some(attack => attack[0] == undefined || attack[1] === 11)).toBe(false);
   })
 });
