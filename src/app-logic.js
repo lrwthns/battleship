@@ -93,15 +93,17 @@ const Gameboard = () => {
 
   const receiveAttack = (x, y) => {
     let coor = `${x}${y}`;
-    let isMissedHit = true;
+    let isAHit = false;
     for (let i = 0; i < ships.length; i++) {
       if (ships[i].coordi.includes(coor)) {
         ships[i].hit(coor);
-        isMissedHit = false;
+        isAHit = true;
+        return isAHit;
       };
     }
-    if (isMissedHit === true) {
+    if (isAHit === false) {
       missedAttacks.push(coor);
+      return isAHit;
     }
   }
 
@@ -127,28 +129,55 @@ const Player = (name, isComputer = false) => {
   let board = Gameboard(isComputer);
   const launchAttack = (enemyGameboard, x = '', y = '') => {
     if (isComputer === true) {
-      const findRandomUniqueCoor = (arr) => {
-        const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-        // generates a random whole number between 1 to 10
-        const generateRandomCoor = () => {
-          const randomNumber = Math.floor(Math.random() * 10) + 1;
-          const randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
-          const randomArr = [randomAlphabet, randomNumber];
-          return randomArr;
-        }
-        let randomCoor = generateRandomCoor();
-        // while hasAttacked contains the same element as randomCoor, generate a new random coor
-        while (hasAttacked.some(item => item[0] === randomCoor[0] && item[1] === randomCoor[1])) {
-          randomCoor = generateRandomCoor();
-        }
-        return randomCoor;
+    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      const generateRandomCoor = () => {
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+        const randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
+        const randomArr = [randomAlphabet, randomNumber];
+        return randomArr;
       }
-      // const findShipCoor 
-      const randomUniqueCoor = findRandomUniqueCoor(hasAttacked);
-      enemyGameboard.receiveAttack(randomUniqueCoor[0], randomUniqueCoor[1]);
-      hasAttacked.push(randomUniqueCoor);
+      
+      const findShipCoor = () => {
+        let lastHit = hasHit[hasHit.length-1];
+        let increment = Math.random() < 0.5;
+        let coordiX = Math.random() < 0.5;
+        if (increment && coordiX) {
+          let coorX = alphabet[alphabet.indexOf(lastHit[0]) + 1];
+          return [coorX, lastHit[1]];
+        } else if (!increment && coordiX) {
+          let coorX = alphabet[alphabet.indexOf(lastHit[0]) - 1];
+          return [coorX, lastHit[1]];
+        } else if (increment && !coordiX) {
+          let coorY = lastHit[1] + 1;
+          return [lastHit[0], coorY];
+        } else {
+          let coorY = lastHit[1] - 1;
+          return [lastHit[0], coorY];
+        }
+      }
+      let attackCoor;
+      if (hasHit.length === 0) {
+        attackCoor = generateRandomCoor();
+        // while hasAttacked contains the same element, generate a new one
+        while (hasAttacked.some(item => item[0] === attackCoor[0] && item[1] === attackCoor[1])) {
+          attackCoor = generateRandomCoor();
+        }
+      } else {
+        attackCoor = findShipCoor();
+        while (hasAttacked.some(item => item[0] === attackCoor[0] && item[1] === attackCoor[1])) {
+          attackCoor = findShipCoor();
+        }
+      }
+      const attack = enemyGameboard.receiveAttack(attackCoor[0], attackCoor[1]);
+      if (attack === true) {
+        hasHit.push(attackCoor);
+      }
+      hasAttacked.push(attackCoor);
     } else {
-      enemyGameboard.receiveAttack(x, y);
+      const attack = enemyGameboard.receiveAttack(x, y);
+      if (attack === true) {
+        hasHit.push([x, y]);
+      }
       hasAttacked.push([x, y]);
     }
   };
