@@ -35,7 +35,7 @@ const Ship = (coordiX, coordiY, isVertical, shipLength) => {
   }
 }
 
-const Gameboard = (isComputer) => {
+const Gameboard = () => {
   let ships = [];
   let missedAttacks = [];
   let isFrozen = false;
@@ -122,7 +122,8 @@ const Gameboard = (isComputer) => {
 };
 
 const Player = (name, isComputer = false) => {
-  let hasHitCoordi = [];
+  let hasAttacked = [];
+  let hasHit = [];
   let board = Gameboard(isComputer);
   const launchAttack = (enemyGameboard, x = '', y = '') => {
     if (isComputer === true) {
@@ -136,25 +137,27 @@ const Player = (name, isComputer = false) => {
           return randomArr;
         }
         let randomCoor = generateRandomCoor();
-        // while hasHitCoordi contains the same element as randomCoor, generate a new random coor
-        while (hasHitCoordi.some(item => item[0] === randomCoor[0] && item[1] === randomCoor[1])) {
+        // while hasAttacked contains the same element as randomCoor, generate a new random coor
+        while (hasAttacked.some(item => item[0] === randomCoor[0] && item[1] === randomCoor[1])) {
           randomCoor = generateRandomCoor();
         }
         return randomCoor;
       }
-      const randomUniqueCoor = findRandomUniqueCoor(hasHitCoordi);
+      // const findShipCoor 
+      const randomUniqueCoor = findRandomUniqueCoor(hasAttacked);
       enemyGameboard.receiveAttack(randomUniqueCoor[0], randomUniqueCoor[1]);
-      hasHitCoordi.push(randomUniqueCoor);
+      hasAttacked.push(randomUniqueCoor);
     } else {
       enemyGameboard.receiveAttack(x, y);
-      hasHitCoordi.push([x, y]);
+      hasAttacked.push([x, y]);
     }
   };
 
   return {
     name,
     board,
-    hasHitCoordi,
+    hasAttacked,
+    hasHit,
     launchAttack,
   }
 };
