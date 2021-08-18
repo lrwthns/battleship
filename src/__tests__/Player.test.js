@@ -56,7 +56,6 @@ describe('Player factory function', () => {
     while (times--) {
       playerComputer.launchAttack(playerHuman.board);
     }
-    console.log(playerComputer.hasAttacked);
     expect(playerComputer.hasAttacked.some(attack => attack[0] == undefined || attack[1] === 11)).toBe(false);
   })
 });

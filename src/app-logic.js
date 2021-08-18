@@ -129,12 +129,21 @@ const Player = (name, isComputer = false) => {
   let board = Gameboard(isComputer);
   const launchAttack = (enemyGameboard, x = '', y = '') => {
     if (isComputer === true) {
-    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-      const generateRandomCoor = () => {
-        const randomNumber = Math.floor(Math.random() * 10) + 1;
-        const randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
-        const randomArr = [randomAlphabet, randomNumber];
-        return randomArr;
+      const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      const findRandomUniqueCoor = () => {
+        // generates a random whole number between 1 to 10
+        const generateRandomCoor = () => {
+          const randomNumber = Math.floor(Math.random() * 10) + 1;
+          const randomAlphabet = alphabet[Math.floor(Math.random() * 10)];
+          const randomArr = [randomAlphabet, randomNumber];
+          return randomArr;
+        }
+        let randomCoor = generateRandomCoor();
+        // while hasAttacked contains the same element as randomCoor, generate a new random coor
+        while (hasAttacked.some(item => item[0] === randomCoor[0] && item[1] === randomCoor[1])) {
+          randomCoor = generateRandomCoor();
+        }
+        return randomCoor;
       }
       const findShipCoor = () => {
         const calculateNextCoor = () => {
@@ -155,22 +164,28 @@ const Player = (name, isComputer = false) => {
           };
           if (anchor[1] === 10) {
             possibleMoves.splice(possibleMoves.indexOf(down), 1);
-          }
+          };
+          return possibleMoves;
         }
         const nextCoors = calculateNextCoor();
-        let coor = nextCoor[0];
+        let index = 0;
+        let coor = nextCoors[index];
+        let tries = nextCoors.length - 1;
         while (hasAttacked.some(item => item[0] === coor[0] && item[1] === coor[1])) {
-          
+          index++;
+          coor = nextCoors[index];
+          tries--;
+          if (tries === 0) {
+            coor = findRandomUniqueCoor();
+            break;
+          }
         }
+        return coor;
       }
       let attackCoor;
       // put more conditions here probably
       if (hasHit.length === 0) {
-        attackCoor = generateRandomCoor();
-        // while hasAttacked contains the same element, generate a new one
-        while (hasAttacked.some(item => item[0] === attackCoor[0] && item[1] === attackCoor[1])) {
-          attackCoor = generateRandomCoor();
-        }
+        attackCoor = findRandomUniqueCoor();
       } else {
         attackCoor = findShipCoor();
       }
