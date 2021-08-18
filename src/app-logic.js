@@ -128,6 +128,7 @@ const Player = (name, isComputer = false) => {
   let hasHit = [];
   let board = Gameboard(isComputer);
   const launchAttack = (enemyGameboard, x = '', y = '') => {
+    let attackCoor = [x, y];
     if (isComputer === true) {
       const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
       const findRandomUniqueCoor = () => {
@@ -155,14 +156,12 @@ const Player = (name, isComputer = false) => {
           let possibleMoves = [right, left, down, up];
           if (anchor[0] === 'J') {
             possibleMoves.shift();
-          };
-          if (anchor[0] === 'A') {
+          } else if (anchor[0] === 'A') {
             possibleMoves.splice(1, 1);
           };
           if (anchor[1] === 1) {
             possibleMoves.pop();
-          };
-          if (anchor[1] === 10) {
+          } else if (anchor[1] === 10) {
             possibleMoves.splice(possibleMoves.indexOf(down), 1);
           };
           return possibleMoves;
@@ -179,28 +178,20 @@ const Player = (name, isComputer = false) => {
             coor = findRandomUniqueCoor();
             break;
           }
-        }
-        return coor;
+        } return coor;
       }
-      let attackCoor;
       // put more conditions here probably
       if (hasHit.length === 0) {
         attackCoor = findRandomUniqueCoor();
       } else {
         attackCoor = findShipCoor();
       }
-      const attack = enemyGameboard.receiveAttack(attackCoor[0], attackCoor[1]);
-      if (attack === true) {
-        hasHit.push(attackCoor);
-      }
-      hasAttacked.push(attackCoor);
-    } else {
-      const attack = enemyGameboard.receiveAttack(x, y);
-      if (attack === true) {
-        hasHit.push([x, y]);
-      }
-      hasAttacked.push([x, y]);
+    } 
+    const attack = enemyGameboard.receiveAttack(attackCoor[0], attackCoor[1]);
+    if (attack === true) {
+      hasHit.push(attackCoor);
     }
+    hasAttacked.push(attackCoor);
   };
 
   return {
