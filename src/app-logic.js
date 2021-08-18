@@ -137,26 +137,34 @@ const Player = (name, isComputer = false) => {
         return randomArr;
       }
       const findShipCoor = () => {
-        let lastHit = hasHit[hasHit.length-1];
-        let increment = Math.random() < 0.5;
-        let coordiX = Math.random() < 0.5;
-        if (increment && coordiX && lastHit[0] !== 'J') {
-          let coorX = alphabet[alphabet.indexOf(lastHit[0]) + 1];
-          return [coorX, lastHit[1]];
-        } else if (!increment && coordiX && lastHit[0] !== 'A') {
-          let coorX = alphabet[alphabet.indexOf(lastHit[0]) - 1];
-          return [coorX, lastHit[1]];
-        } else if (increment && !coordiX && lastHit[1] !== 10) {
-          let coorY = lastHit[1] + 1;
-          return [lastHit[0], coorY];
-        } else if (!increment && !coordiX && lastHit[1] !== 1) {
-          let coorY = lastHit[1] - 1;
-          return [lastHit[0], coorY];
-        } else {
-          return lastHit;
+        const calculateNextCoor = () => {
+          const anchor = hasHit[hasHit.length-1];
+          const right = [alphabet[alphabet.indexOf(anchor[0]) + 1], anchor[1]];
+          const left = [alphabet[alphabet.indexOf(anchor[0]) - 1], anchor[1]];
+          const down = [anchor[0], anchor[1] + 1];
+          const up = [anchor[0], anchor[1] - 1];
+          let possibleMoves = [right, left, down, up];
+          if (anchor[0] === 'J') {
+            possibleMoves.shift();
+          };
+          if (anchor[0] === 'A') {
+            possibleMoves.splice(1, 1);
+          };
+          if (anchor[1] === 1) {
+            possibleMoves.pop();
+          };
+          if (anchor[1] === 10) {
+            possibleMoves.splice(possibleMoves.indexOf(down), 1);
+          }
+        }
+        const nextCoors = calculateNextCoor();
+        let coor = nextCoor[0];
+        while (hasAttacked.some(item => item[0] === coor[0] && item[1] === coor[1])) {
+          
         }
       }
       let attackCoor;
+      // put more conditions here probably
       if (hasHit.length === 0) {
         attackCoor = generateRandomCoor();
         // while hasAttacked contains the same element, generate a new one
@@ -165,9 +173,6 @@ const Player = (name, isComputer = false) => {
         }
       } else {
         attackCoor = findShipCoor();
-        while (hasAttacked.some(item => item[0] === attackCoor[0] && item[1] === attackCoor[1])) {
-          attackCoor = findShipCoor();
-        }
       }
       const attack = enemyGameboard.receiveAttack(attackCoor[0], attackCoor[1]);
       if (attack === true) {
